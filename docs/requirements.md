@@ -4,7 +4,7 @@ Wording: "must" = mandatory, "should" = expected, "may" = optional.
 
 ## 1. Project Overview
 
-Reiseblog is a web application in which users document their own trips: they mark places on a map, attach photos and
+TravelBlog is a web application in which users document their own trips: they mark places on a map, attach photos and
 personal notes to them, see the route they travelled, and see which countries they have already visited.
 
 It is a group project of three people in a Java + React course, with about 30 hours per person. Each user works with
@@ -151,8 +151,9 @@ All users have the same rights; there are no roles and there is no admin area.
 
 ### Usability
 
-* The user interface is in German.
-* The design is modern, light, minimalist, and airy; the page mockups in `Reiseblog – Seitenentwürfe.html` are the
+* The application is called TravelBlog; the name is not translated.
+* The user interface is in German in the first version.
+* The design is modern, light, minimalist, and airy; the page mockups in `TravelBlog – Seitenentwürfe.html` are the
   reference.
 * The application should be usable on mobile devices.
 
@@ -216,6 +217,7 @@ Potential future functionality may include:
 * historical weather for a stop's place and date
 * reading a photo's location from its EXIF data
 * turning a wishlist entry into a planned trip
+* a language switch, so that each user can choose the language of the user interface
 
 Future ideas should not be implemented unless explicitly requested.
 

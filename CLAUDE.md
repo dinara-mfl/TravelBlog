@@ -2,7 +2,7 @@
 
 ## Project
 
-Reiseblog is a personal travel diary: users record trips with places on a map, photos, and notes, see their routes
+TravelBlog is a personal travel diary: users record trips with places on a map, photos, and notes, see their routes
 and visited countries, and keep a wishlist of destinations. It is a group project of three people in a Java + React
 course.
 
@@ -12,7 +12,7 @@ course.
 - `/backend` — Spring Boot backend application
 - `/docs` — project requirements and documentation
 - `/project-templates` — the template for `docs/deployment.md`, to be filled in once the deployment target is decided
-- `Reiseblog – Seitenentwürfe.html` — page mockups (trip overview, trip detail, world map, wishlist)
+- `TravelBlog – Seitenentwürfe.html` — page mockups (trip overview, trip detail, world map, wishlist)
 
 ## Documentation
 
@@ -78,7 +78,9 @@ If a requested change conflicts with these documents, point out the conflict bef
 - Frontend communicates with the backend through HTTP; all backend endpoints start with `/api`.
 - During local development, the Vite development proxy forwards `/api` to `http://localhost:8080`.
 - Every user sees and changes only their own data; the backend enforces this on every endpoint.
-- The user interface texts are in German; code, comments, and documentation are in English.
+- The application is called TravelBlog in every language; the name is not translated.
+- The user interface texts are in German for now; a language switch for the user is planned for a later version.
+- Code, comments, and documentation are in English.
 
 ## Development Principles
 

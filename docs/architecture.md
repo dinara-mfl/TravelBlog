@@ -67,12 +67,13 @@ Decisions that complement `requirements.md`. Update this file when a decision ch
 
 - Styling uses Tailwind CSS v4. Theme colors are defined once in `frontend/src/index.css`; components use these
   colors instead of hard-coded ones.
-- The look follows the mockups in `Reiseblog – Seitenentwürfe.html`: light background, white cards with soft
+- The look follows the mockups in `TravelBlog – Seitenentwürfe.html`: light background, white cards with soft
   shadows and large corner radii, one blue accent color.
 - Small screens are covered with Tailwind breakpoints; the main breakpoint is `md` (768 px).
 - Pages load data once and are refreshed manually (no polling).
 - Routing uses React Router; HTTP requests use axios.
-- User interface texts are in German.
+- User interface texts are in German. A language switch is a future idea and not built yet; the application name
+  TravelBlog is the same in every language.
 
 ## Error Handling
 
