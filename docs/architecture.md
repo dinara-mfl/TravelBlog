@@ -83,5 +83,11 @@ Decisions that complement `requirements.md`. Update this file when a decision ch
 
 ## Testing
 
-- Backend tests mock the database (Mockito); no database or other infrastructure is needed to run them.
-- Controller and security behavior is tested with MockMvc against the full application context.
+- Controllers are tested as integration tests: `@SpringBootTest` with MockMvc against the full application context
+  and an embedded MongoDB (Flapdoodle), because this is the approach taught in the course and it also covers the
+  repository and the JSON mapping.
+- The embedded MongoDB is started by the tests themselves; no installed database or other infrastructure is needed.
+  The first run downloads the MongoDB binary.
+- Each test starts with an empty database.
+- Service logic (e.g. the route length) is tested with plain unit tests; the repository is mocked with Mockito.
+- Calls to external services (e.g. Nominatim) are mocked with `MockRestServiceServer`.
