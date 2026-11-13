@@ -36,7 +36,7 @@ class TripControllerTest {
 
     @Test
     void getAllTrips_returnsSavedTrip() throws Exception {
-        Trip trip = new Trip("1", "TestTrip", "Test", LocalDate.of(2024, 5, 12), LocalDate.of(2024, 5, 20));
+        Trip trip = new Trip("1", "TestTrip", "Test", LocalDate.of(2024, 5, 12), LocalDate.of(2024, 5, 20), "user-1");
         tripRepo.save(trip);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/trips")
@@ -74,5 +74,16 @@ class TripControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/trips")
                         .header("Authorization", "Bearer not-a-valid-token"))
                 .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+    }
+
+    @Test
+    void getAllTrips_doesNotReturnTripsOfOtherUsers() throws Exception {
+        tripRepo.save(new Trip("2", "OtherTrip", "Test",
+                LocalDate.of(2024, 5, 12), LocalDate.of(2024, 5, 20), "user-2"));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/trips")
+                        .header("Authorization", bearer("user-1")))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("[]"));
     }
 }

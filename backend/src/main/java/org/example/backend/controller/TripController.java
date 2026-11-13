@@ -2,6 +2,7 @@ package org.example.backend.controller;
 
 import org.example.backend.model.Trip;
 import org.example.backend.service.TripService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,7 @@ public class TripController {
     }
 
     @GetMapping
-    public List<Trip> getAllTrips() {
-        return tripService.getAllTrips();
+    public List<Trip> getAllTrips(@AuthenticationPrincipal String userId) {
+        return tripService.getAllTrips(userId);
     }
 }

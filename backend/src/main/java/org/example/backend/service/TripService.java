@@ -18,4 +18,8 @@ public class TripService {
     public List<Trip> getAllTrips() {
         return tripRepo.findAll();
     }
+
+    public List<Trip> getAllTrips(String userId) {
+        return tripRepo.findAllByUserId(userId);
+    }
 }
