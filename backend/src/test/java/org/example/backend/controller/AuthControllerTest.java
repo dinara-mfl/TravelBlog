@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -22,6 +23,8 @@ class AuthControllerTest {
     private MockMvc mockMvc;
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @BeforeEach
     void setUp() {
@@ -61,5 +64,41 @@ class AuthControllerTest {
                                 {"username": "lena", "password": "short"}
                                 """))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
+    void login_returnsToken_whenPasswordIsCorrect() throws Exception {
+        userRepo.save(new User(null, "lena", passwordEncoder.encode("secret123")));
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"username": "lena", "password": "secret123"}
+                                """))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.token").isNotEmpty())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.username").value("lena"));
+    }
+
+    @Test
+    void login_returnsUnauthorized_whenPasswordIsWrong() throws Exception {
+        userRepo.save(new User(null, "lena", passwordEncoder.encode("secret123")));
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"username": "lena", "password": "wrong-password"}
+                                """))
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+    }
+
+    @Test
+    void login_returnsUnauthorized_whenUserDoesNotExist() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"username": "nobody", "password": "secret123"}
+                                """))
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
     }
 }
