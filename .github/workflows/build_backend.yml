@@ -38,6 +38,8 @@ jobs:
             -Dsonar.organization=dinara-mfl
             -Dsonar.projectKey=dinara-mfl_TravelBlog_backend
             -Dsonar.sources=backend/src/main/java
+            -Dsonar.inclusions=backend/**
+            -Dsonar.test.inclusions=backend/**
             -Dsonar.tests=backend/src/test/java
             -Dsonar.java.binaries=backend/target/classes
             -Dsonar.java.test.binaries=backend/target/test-classes
