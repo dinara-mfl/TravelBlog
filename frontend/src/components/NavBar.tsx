@@ -1,10 +1,5 @@
 import {Link, NavLink} from "react-router-dom";
-
-const links = [
-    {to: '/trips', label: 'Reisen'},
-    {to: '/map', label: 'Weltkarte'},
-    {to: '/wishlist', label: 'Wunschliste'},
-]
+import {HOME_PATH, navPages} from '../navigation'
 
 const linkBase = 'flex min-h-11 items-center rounded-full px-4 text-[15px] font-semibold'
 
@@ -15,7 +10,7 @@ export default function NavBar() {
             {/* Same width as the page content. On small screens: logo and profile in the first row,
           the links in a second row; from md (768 px) on: everything in one row */}
             <div className="mx-auto flex max-w-280 flex-wrap items-center gap-x-8 gap-y-2 px-6 py-3.5">
-                <Link to="/trips" className="flex min-h-11 items-center gap-2.5 text-lg font-bold text-ink">
+                <Link to={HOME_PATH} className="flex min-h-11 items-center gap-2.5 text-lg font-bold text-ink">
                     <CloudIcon/>
                     TravelBlog
                 </Link>
@@ -24,18 +19,18 @@ export default function NavBar() {
                     aria-label="Hauptnavigation"
                     className="order-last flex basis-full flex-wrap gap-1 md:order-0 md:flex-1 md:basis-auto"
                 >
-                    {links.map((link) => (
+                    {navPages.map((page) => (
                         // NavLink marks the current page (also /trips/123 for "Reisen") and sets aria-current="page"
                         <NavLink
-                            key={link.to}
-                            to={link.to}
+                            key={page.path}
+                            to={page.path}
                             className={({isActive}) =>
                                 isActive
                                     ? `${linkBase} bg-accent-soft text-accent`
                                     : `${linkBase} text-muted hover:text-ink`
                             }
                         >
-                            {link.label}
+                            {page.label}
                         </NavLink>
                     ))}
                 </nav>
