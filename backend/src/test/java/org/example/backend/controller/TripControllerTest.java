@@ -2,6 +2,7 @@ package org.example.backend.controller;
 
 import org.example.backend.model.Trip;
 import org.example.backend.repository.TripRepo;
+import org.example.backend.service.JwtService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,16 @@ class TripControllerTest {
     private MockMvc mockMvc;
     @Autowired
     private TripRepo tripRepo;
+    @Autowired
+    private JwtService jwtService;
 
     @BeforeEach
     void setUp() {
         tripRepo.deleteAll();
+    }
+
+    private String bearer(String userId) {
+        return "Bearer " + jwtService.createToken(userId);
     }
 
     @Test
@@ -32,7 +39,8 @@ class TripControllerTest {
         Trip trip = new Trip("1", "TestTrip", "Test", LocalDate.of(2024, 5, 12), LocalDate.of(2024, 5, 20));
         tripRepo.save(trip);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/trips"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/trips")
+                        .header("Authorization", bearer("user-1")))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                         [
@@ -49,8 +57,22 @@ class TripControllerTest {
 
     @Test
     void getAllTrips_returnsEmptyList_whenNoTripsExist() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/trips"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/trips")
+                        .header("Authorization", bearer("user-1")))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("[]"));
+    }
+
+    @Test
+    void getAllTrips_returnsUnauthorized_withoutToken() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/trips"))
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+    }
+
+    @Test
+    void getAllTrips_returnsUnauthorized_withInvalidToken() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/trips")
+                        .header("Authorization", "Bearer not-a-valid-token"))
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
     }
 }
