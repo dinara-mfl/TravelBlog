@@ -38,7 +38,7 @@ class TripControllerTest {
                         [
                           {
                             "id": "1",
-                            "name": "TestTrip",
+                            "title": "TestTrip",
                             "description": "Test",
                             "startDate": "2024-05-12",
                             "endDate": "2024-05-20"

@@ -34,7 +34,7 @@ If a requested change conflicts with these documents, point out the conflict bef
 - React Router
 - axios
 - oxlint
-- Tailwind CSS v4 (decided, not installed yet)
+- Tailwind CSS v4
 - Leaflet with OpenStreetMap tiles (decided, not installed yet)
 
 ### Backend
