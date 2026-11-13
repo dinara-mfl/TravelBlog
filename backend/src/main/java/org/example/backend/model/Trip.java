@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Document(collection = "trips")
 @With
 public record Trip(@Id String id,
-                   String name,
+                   String title,
                    String description,
                    LocalDate startDate,
                    LocalDate endDate) {
