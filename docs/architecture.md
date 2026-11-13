@@ -6,7 +6,32 @@ Decisions that complement `requirements.md`. Update this file when a decision ch
 
 - The deployment target is not decided (see `requirements.md` → Open Questions).
 - During local development, the Vite dev server proxies `/api` to the backend on `http://localhost:8080`.
-- GitHub Actions builds the backend with `mvn -B package` on every push.
+- Continuous integration and code analysis: see CI and Code Quality.
+
+## CI and Code Quality
+
+- GitHub Actions runs three workflows (`.github/workflows/`):
+  - `maven.yml` (Java CI with Maven): builds and tests the backend with `mvn -B clean verify` on every push to a branch
+    other than `main`, for feedback before a pull request is opened.
+  - `build_backend.yml` (SonarQube_backend): on every pull request and push to `main`, builds and tests the backend,
+    then analyzes it with SonarQube Cloud.
+  - `build_frontend.yml` (SonarQube_frontend): on every pull request and push to `main`, runs `npm ci`,
+    `npm run lint`, and `npm run build` (including the type check) in `frontend/`, then analyzes it with SonarQube
+    Cloud. CI uses Node.js 22.
+- `main` is not built by `maven.yml`, because `build_backend.yml` already builds and tests it.
+- SonarQube Cloud is used because it was introduced in the course; it reports bugs, code smells, security hotspots,
+  duplication, and test coverage, and comments the Quality Gate result on each pull request.
+- Backend and frontend are two separate SonarQube Cloud projects in the organization `dinara-mfl`:
+  `dinara-mfl_TravelBlog_backend` and `dinara-mfl_TravelBlog_frontend`.
+- The workflows authenticate with the repository secret `SONAR_TOKEN`; the token is never committed.
+- A pull request is merged only when its Quality Gate has passed.
+- Backend coverage is measured with JaCoCo (`jacoco-maven-plugin` in `backend/pom.xml`); `mvn verify` writes the report
+  to `backend/target/site/jacoco/jacoco.xml`.
+- `build_backend.yml` first runs `mvn -B verify`, then the scan; the scanner gets the source, test, and class
+  directories of `backend/` and the path of the JaCoCo report, so the analysis covers only the backend and includes
+  coverage.
+- The frontend has no automated tests: frontend testing is not part of the course. Frontend coverage is therefore
+  excluded from the analysis (`sonar.coverage.exclusions=**/*`); lint, type check, and build are the frontend checks.
 
 ## Configuration & Secrets
 
