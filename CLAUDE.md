@@ -51,7 +51,11 @@ If a requested change conflicts with these documents, point out the conflict bef
 ### Infrastructure
 
 - MongoDB
-- GitHub Actions builds the backend on every push (`.github/workflows/maven.yml`)
+- GitHub Actions (`.github/workflows/`): on every pull request and push to `main`, builds and tests the backend
+  (`build_backend.yml`) and lints and builds the frontend (`build_frontend.yml`), then analyzes both with SonarQube
+  Cloud; pushes to other branches build and test the backend (`maven.yml`). Details in `docs/architecture.md` → CI and
+  Code Quality
+- The frontend has no automated tests (not part of the course); its checks are lint, type check, and build
 - External services, all free and without an API key: OpenStreetMap tiles, Nominatim (place search)
 - Deployment target: not decided
 
@@ -111,6 +115,7 @@ After making changes:
 - Run relevant backend tests and builds.
 - Verify both frontend and backend when a change affects their integration.
 - Do not consider a task complete if relevant verification fails.
+- A pull request is ready to merge only when the CI build and the SonarQube Quality Gate have passed.
 
 ## Claude Code Workflow
 

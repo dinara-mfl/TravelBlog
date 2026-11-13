@@ -8,14 +8,21 @@ on:
 jobs:
   build:
     name: Build and analyze
-    runs-on: ubuntu-latest
+    # Pinned like maven.yml: the embedded MongoDB used by the tests needs a supported Ubuntu version
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      # This step should build, test and generate coverage reports
-      # - name: Build and test
-      #   run: <build + test + generate coverage reports>
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          cache: maven
+      # Builds, runs the tests, and writes the JaCoCo report (backend/target/site/jacoco/jacoco.xml)
+      - name: Build and test
+        run: mvn -B verify --file backend/pom.xml
       - name: Cache SonarQube packages
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
@@ -30,3 +37,8 @@ jobs:
           args: >
             -Dsonar.organization=dinara-mfl
             -Dsonar.projectKey=dinara-mfl_TravelBlog_backend
+            -Dsonar.sources=backend/src/main/java
+            -Dsonar.tests=backend/src/test/java
+            -Dsonar.java.binaries=backend/target/classes
+            -Dsonar.java.test.binaries=backend/target/test-classes
+            -Dsonar.coverage.jacoco.xmlReportPaths=backend/target/site/jacoco/jacoco.xml
