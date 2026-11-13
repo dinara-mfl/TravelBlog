@@ -1,7 +1,11 @@
 name: Java CI with Maven
 
+# Fast feedback for feature branches before a pull request is opened.
+# Pull requests and main are built and tested by build_backend.yml before the SonarQube scan.
 on:
   push:
+    branches-ignore:
+      - main
 
 jobs:
   build:
