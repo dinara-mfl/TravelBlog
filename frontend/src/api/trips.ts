@@ -44,3 +44,8 @@ export async function updateTrip(id: string, request: TripRequest): Promise<Trip
 export async function deleteTrip(id: string): Promise<void> {
     await api.delete(`/api/trips/${id}`)
 }
+
+export async function setCover(id: string, photoId: string | null): Promise<Trip> {
+    const response = await api.put<Trip>(`/api/trips/${id}/cover`, {photoId})
+    return response.data
+}

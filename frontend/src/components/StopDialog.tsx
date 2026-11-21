@@ -8,13 +8,15 @@ import {suggestStopDate} from '../utils/dates'
 import FormField from './FormField'
 import PlaceSearch from './PlaceSearch'
 import StopTypeField from './StopTypeField'
+import {photoWarning, savePhotos} from '../api/photos'
+import PhotoPicker from './PhotoPicker'
 
 type StopDialogProps = {
     open: boolean
     trip: Trip
     stop?: Stop | null // set: edit this stop; empty: add a new one
     onClose: () => void
-    onSaved: (trip: Trip) => void
+    onSaved: (trip: Trip, warning?: string) => void
 }
 
 // The place of an existing stop, shown as selected until the user searches for another one
@@ -39,6 +41,9 @@ export default function StopDialog({open, trip, stop, onClose, onSaved}: Readonl
     const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
     const [error, setError] = useState('')
     const [submitting, setSubmitting] = useState(false)
+    const [uploading, setUploading] = useState(false)
+    const [keptPhotoIds, setKeptPhotoIds] = useState<string[]>([])
+    const [newFiles, setNewFiles] = useState<File[]>([])
     // Changes every time the dialog opens, so that the place search starts empty again
     const [searchKey, setSearchKey] = useState(0)
 
@@ -52,6 +57,8 @@ export default function StopDialog({open, trip, stop, onClose, onSaved}: Readonl
             setDate(stop?.date ?? suggestStopDate(trip))
             setNote(stop?.note ?? '')
             setType(stop?.type ?? 'OVERNIGHT')
+            setKeptPhotoIds(stop?.photoIds ?? [])
+            setNewFiles([])
             setFieldErrors({})
             setError('')
             setSearchKey((key) => key + 1)
@@ -92,17 +99,31 @@ export default function StopDialog({open, trip, stop, onClose, onSaved}: Readonl
             const saved = stop
                 ? await updateStop(trip.id, stop.id, request)
                 : await addStop(trip.id, request)
-            onSaved(saved)
+            const stopId = stop?.id ?? saved.stops.find((s) => !trip.stops.some((old) => old.id === s.id))?.id
+            const removedPhotoIds = (stop?.photoIds ?? []).filter((id) => !keptPhotoIds.includes(id))
+
+            if (!stopId || (removedPhotoIds.length === 0 && newFiles.length === 0)) {
+                onSaved(saved)
+                return
+            }
+            setUploading(true)
+            const result = await savePhotos(trip.id, stopId, removedPhotoIds, newFiles)
+            onSaved(result.trip ?? saved, photoWarning(result.failed))
         } catch (err) {
             setFieldErrors(getFieldErrors(err))
             setError(getErrorMessage(err, 'Der Ort konnte nicht gespeichert werden.'))
         } finally {
             setSubmitting(false)
+            setUploading(false)
         }
     }
 
     // Errors of the coordinates or the country belong to the place search
     const placeError = fieldErrors.place ?? fieldErrors.latitude ?? fieldErrors.longitude ?? fieldErrors.countryCode
+
+    let submitLabel = 'Speichern'
+    if (uploading) submitLabel = 'Fotos werden hochgeladen …'
+    else if (submitting) submitLabel = 'Wird gespeichert …'
 
     return (
         <dialog
@@ -153,6 +174,12 @@ export default function StopDialog({open, trip, stop, onClose, onSaved}: Readonl
                                 className="rounded-xl border border-line-strong bg-surface px-4 py-3 text-[15px] text-ink outline-none placeholder:text-muted/70 focus:border-accent focus:ring-4 focus:ring-accent-soft"
                             />
                         </div>
+                        <PhotoPicker
+                            existingPhotoIds={keptPhotoIds}
+                            files={newFiles}
+                            onExistingChange={setKeptPhotoIds}
+                            onFilesChange={setNewFiles}
+                        />
                     </>
                 )}
 
@@ -175,7 +202,7 @@ export default function StopDialog({open, trip, stop, onClose, onSaved}: Readonl
                         disabled={submitting}
                         className="min-h-12 cursor-pointer rounded-full bg-accent px-6 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(31,111,191,0.25)] hover:bg-accent-dark disabled:cursor-default disabled:opacity-60"
                     >
-                        {submitting ? 'Wird gespeichert …' : 'Speichern'}
+                        {submitLabel}
                     </button>
                 </div>
             </form>

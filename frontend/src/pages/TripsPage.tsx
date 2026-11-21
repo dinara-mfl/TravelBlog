@@ -46,10 +46,9 @@ export default function TripsPage() {
         setSelectedTags([])
     }
 
-    // After creating a trip the user usually adds its places next, so its detail page opens
-    function handleCreated(trip: Trip) {
+    function handleCreated(trip: Trip, warning?: string) {
         setDialogOpen(false)
-        void navigate(`/trips/${trip.id}`)
+        void navigate(`/trips/${trip.id}`, {state: {notice: warning}})
     }
 
     return (

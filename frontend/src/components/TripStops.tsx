@@ -5,7 +5,9 @@ import {STOP_TYPE_LABELS, type Stop, type Trip} from '../types/trip'
 import {getCountryName} from '../utils/countries'
 import {formatStay} from '../utils/dates'
 import {formatKm} from '../utils/tripFilters'
+import AuthImage from './AuthImage'
 import ConfirmDialog from './ConfirmDialog'
+import PhotoLightbox from './PhotoLightbox'
 import StopDialog from './StopDialog'
 import TripMap from './TripMap'
 
@@ -46,6 +48,7 @@ export default function TripStops({trip, onTripChange}: Readonly<TripStopsProps>
     const [stopToEdit, setStopToEdit] = useState<Stop | null>(null)
     const [stopToDelete, setStopToDelete] = useState<Stop | null>(null)
     const [error, setError] = useState('')
+    const [viewing, setViewing] = useState<{ stopId: string; index: number } | null>(null)
 
     function openNew() {
         setStopToEdit(null)
@@ -125,6 +128,30 @@ export default function TripStops({trip, onTripChange}: Readonly<TripStopsProps>
                                                 </span>
                                             </div>
                                             {stop.note && <p className="text-ink-soft">{stop.note}</p>}
+                                            {stop.photoIds.length > 0 && (
+                                                <ul className="flex flex-wrap gap-2">
+                                                    {stop.photoIds.map((photoId, index) => (
+                                                        <li key={photoId} className="relative">
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => setViewing({stopId: stop.id, index})}
+                                                                className="block cursor-pointer overflow-hidden rounded-xl focus-visible:outline-4 focus-visible:outline-accent-soft"
+                                                            >
+                                                                <AuthImage
+                                                                    photoId={photoId}
+                                                                    alt={`${stop.name}, Foto ${index + 1} – groß anzeigen`}
+                                                                    className="size-20 transition hover:scale-105"
+                                                                />
+                                                            </button>
+                                                            {photoId === trip.coverPhotoId && (
+                                                                <span className="pointer-events-none absolute bottom-1 left-1 rounded-full bg-ink/75 px-2 py-0.5 text-[11px] font-semibold text-white">
+                                                                    Titelbild
+                                                                </span>
+                                                            )}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            )}
                                             <div className="flex flex-wrap gap-2">
                                                 <button
                                                     type="button"
@@ -158,11 +185,22 @@ export default function TripStops({trip, onTripChange}: Readonly<TripStopsProps>
                 trip={trip}
                 stop={stopToEdit}
                 onClose={() => setDialogOpen(false)}
-                onSaved={(saved) => {
+                onSaved={(saved, warning) => {
                     onTripChange(saved)
+                    setError(warning ?? '')
                     setDialogOpen(false)
                 }}
             />
+            
+            {viewing && (
+                <PhotoLightbox
+                    trip={trip}
+                    stopId={viewing.stopId}
+                    startIndex={viewing.index}
+                    onClose={() => setViewing(null)}
+                    onTripChange={onTripChange}
+                />
+            )}
 
             {stopToDelete && (
                 <ConfirmDialog

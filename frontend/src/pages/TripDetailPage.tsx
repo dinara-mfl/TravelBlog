@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {useEffect, useState} from 'react'
-import {Link, useParams, useNavigate} from 'react-router-dom'
+import {Link, useParams, useNavigate, useLocation} from 'react-router-dom'
 import {getErrorMessage} from '../api/client'
 import {getTrip, deleteTrip} from '../api/trips'
 import TagBadges from '../components/TagBadges'
@@ -24,7 +24,8 @@ export default function TripDetailPage() {
     const [trip, setTrip] = useState<Trip | null>(null)
     const [loading, setLoading] = useState(true)
     const [notFound, setNotFound] = useState(false)
-    const [error, setError] = useState('')
+    const location = useLocation()
+    const [error, setError] = useState<string>((location.state as { notice?: string } | null)?.notice ?? '')
     const [editOpen, setEditOpen] = useState(false)
     const [confirmDelete, setConfirmDelete] = useState(false)
     const navigate = useNavigate()

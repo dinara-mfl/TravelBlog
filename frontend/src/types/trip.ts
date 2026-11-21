@@ -50,6 +50,7 @@ export type Stop = {
     // null if there is none
     distanceFromPreviousKm: number | null
     baseStopId: string | null // for a day trip: the overnight stop the user started from
+    photoIds: string[]
 }
 
 // A trip as returned by GET /api/trips (TripResponse in the backend)
@@ -64,4 +65,5 @@ export type Trip = {
     tags: TripTag[] // empty if the trip has no tags
     stops: Stop[] // in the order of the visit (by date)
     routeLengthKm: number // sum of the straight-line distances between the stops on the route
+    coverPhotoId: string | null
 }
