@@ -289,6 +289,18 @@ Decisions that complement `requirements.md`. Update this file when a decision ch
 
 - Styling uses Tailwind CSS v4. Theme colors are defined once in `frontend/src/index.css`; components use these
   colors instead of hard-coded ones.
+- Dark mode: `index.css` defines every theme color a second time under the class `dark` on `<html>`; components
+  keep their classes (`bg-surface`, `text-ink`, …) and only the values change. `ThemeToggle` (sun / moon next to
+  "DE | EN") switches it and keeps the choice in `localStorage` (`theme`); without a choice the system setting
+  decides (`theme.ts`). A small script in `index.html` sets the class before the first paint, so a dark page does not
+  flash white.
+  - Colors that differ in meaning have their own tokens: `danger` / `danger-soft` for errors, `on-accent` for text
+    on accent buttons (white in light, dark in dark mode).
+  - Surfaces that are always dark (photo viewer, dialog backdrop, the cover label on photos) use fixed colors such as
+    `bg-slate-950` or `bg-black/50`, because `ink` becomes light in dark mode.
+  - The street map tiles are darkened with a CSS filter; Leaflet's popups, labels, zoom buttons and credit line get
+    the dark surface (`index.css`). The world map needs nothing extra, because it is drawn with theme colors.
+  - A cover color the user chose is a fixed value; in dark mode it is half transparent over the dark card.
 - The look follows the mockups in `TravelBlog – Seitenentwürfe.html`: light background, white cards with soft
   shadows and large corner radii, one blue accent color.
 - Small screens are covered with Tailwind breakpoints; the main breakpoint is `md` (768 px).

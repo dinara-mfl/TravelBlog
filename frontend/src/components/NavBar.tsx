@@ -2,6 +2,7 @@ import {Link, NavLink} from "react-router-dom";
 import {HOME_PATH, navPages} from '../navigation'
 import {useLanguage} from '../i18n/useLanguage'
 import LanguageSwitch from './LanguageSwitch'
+import ThemeToggle from './ThemeToggle'
 import LogoutButton from './LogoutButton'
 
 const linkBase = 'flex min-h-11 items-center rounded-full px-4 text-[15px] font-semibold'
@@ -39,8 +40,9 @@ export default function NavBar() {
                     ))}
                 </nav>
 
-                {/* Language, logged-in user and logout */}
+                {/* Design, language, logged-in user and logout */}
                 <div className="ml-auto flex items-center gap-3">
+                    <ThemeToggle/>
                     <LanguageSwitch/>
                     <span className="text-[15px] font-semibold text-muted">{username}</span>
                     <LogoutButton/>

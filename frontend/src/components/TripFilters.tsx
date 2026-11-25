@@ -63,7 +63,7 @@ export default function TripFilters({
                                 onClick={() => onYearChange(year)}
                                 className={
                                     active
-                                        ? `${pillBase} border-accent bg-accent text-white`
+                                        ? `${pillBase} border-accent bg-accent text-on-accent`
                                         : `${pillBase} border-line-strong bg-surface text-ink hover:border-accent`
                                 }
                             >
@@ -87,7 +87,7 @@ export default function TripFilters({
                     onClick={() => onTagsChange([])}
                     className={
                         selectedTags.length === 0
-                            ? `${pillBase} border-accent bg-accent text-white`
+                            ? `${pillBase} border-accent bg-accent text-on-accent`
                             : `${pillBase} border-line-strong bg-surface text-ink hover:border-accent`
                     }
                 >
@@ -103,7 +103,7 @@ export default function TripFilters({
                             onClick={() => toggleTag(tag)}
                             className={
                                 active
-                                    ? `${pillBase} border-accent bg-accent text-white`
+                                    ? `${pillBase} border-accent bg-accent text-on-accent`
                                     : `${pillBase} border-line-strong bg-surface text-ink hover:border-accent`
                             }
                         >

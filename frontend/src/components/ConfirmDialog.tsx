@@ -12,7 +12,7 @@ type ConfirmDialogProps = {
 export default function ConfirmDialog({title, message, confirmLabel, onConfirm, onCancel}: Readonly<ConfirmDialogProps>) {
     const {t} = useLanguage()
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 px-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-6">
             <div
                 role="alertdialog"
                 aria-modal="true"

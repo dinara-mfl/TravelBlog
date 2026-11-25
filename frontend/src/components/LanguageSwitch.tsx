@@ -19,7 +19,7 @@ export default function LanguageSwitch() {
                         title={LANGUAGE_NAMES[option]}
                         onClick={() => setLanguage(option)}
                         className={`min-h-10 min-w-10 cursor-pointer rounded-full px-2.5 text-[13px] font-bold ${
-                            active ? 'bg-accent text-white' : 'text-muted hover:text-ink'
+                            active ? 'bg-accent text-on-accent' : 'text-muted hover:text-ink'
                         }`}
                     >
                         {option.toUpperCase()}

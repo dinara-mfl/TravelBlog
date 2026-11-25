@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Dark mode is switched with the class "dark" on <html> (ThemeToggle, and a small script in index.html before the
+   first paint), not only by the system setting, so the user can choose. dark:… classes follow the same class. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
     --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
 
@@ -13,6 +17,9 @@
     --color-accent: #1F6FBF;       /* the one blue accent */
     --color-accent-dark: #17558F;  /* accent hover */
     --color-accent-soft: #E3F0FC;  /* active nav link background */
+    --color-on-accent: #FFFFFF;    /* text on accent buttons and badges */
+    --color-danger: #B91C1C;       /* error texts, delete buttons */
+    --color-danger-soft: #FEF2F2;  /* background of error messages */
     --color-cover-1: #DCEBF8;      /* placeholder trip covers (blue, green, sand, lilac) */
     --color-cover-2: #E1F0EA;
     --color-cover-3: #F6EBDD;
@@ -23,6 +30,34 @@
     --color-land: #D3DFEA;         /* countries on the world map that are neither visited nor wished */
     --radius-card: 20px;
     --shadow-card: 0 8px 30px rgba(31, 80, 130, 0.08);
+}
+
+/* The same tokens in dark mode. Components keep their classes (bg-surface, text-ink, …); only the values change.
+   ink is light here, so dark boxes that must stay dark (photo viewer, dialog backdrop) use fixed colors instead. */
+.dark {
+    color-scheme: dark; /* dark form controls, date pickers and scrollbars of the browser */
+
+    --color-page: #0F1923;
+    --color-surface: #17232F;
+    --color-ink: #E6EEF5;
+    --color-ink-soft: #C3D0DC;
+    --color-muted: #93A4B5;
+    --color-line: #24344A;
+    --color-line-strong: #33475D;
+    --color-accent: #5AA2EA;
+    --color-accent-dark: #86BCF1;  /* hover: lighter on a dark background */
+    --color-accent-soft: #1C3550;
+    --color-on-accent: #0B1622;
+    --color-danger: #FCA5A5;
+    --color-danger-soft: rgba(127, 29, 29, 0.35);
+    --color-cover-1: #22384F;
+    --color-cover-2: #213B33;
+    --color-cover-3: #3B3226;
+    --color-cover-4: #2E2A44;
+    --color-chip: #1F2D3B;
+    --color-wish-dark: #FFC266;    /* the chosen wishlist country: lighter instead of darker */
+    --color-land: #2A3B4D;
+    --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
 /* Always keep room for the scrollbar: otherwise the page shifts sideways when switching between a short page
@@ -36,4 +71,34 @@ body {
     background-color: var(--color-page);
     color: var(--color-ink);
     font-family: var(--font-sans), serif;
+}
+
+/* Leaflet in dark mode. The street map tiles are images, so a filter darkens them: invert turns the light map dark,
+   hue-rotate brings water and parks back to blue and green. Popups, name labels, zoom buttons and the credit line
+   come with white backgrounds from leaflet.css and get the dark surface. */
+.dark .leaflet-tile-pane {
+    filter: invert(1) hue-rotate(180deg) brightness(0.95) contrast(0.85) saturate(0.6);
+}
+
+.dark .leaflet-popup-content-wrapper,
+.dark .leaflet-popup-tip,
+.dark .leaflet-tooltip {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+}
+
+.dark .leaflet-bar a {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    border-bottom-color: var(--color-line);
+}
+
+/* .leaflet-container as in leaflet.css, which is loaded later and would otherwise win */
+.dark .leaflet-container .leaflet-control-attribution {
+    background-color: rgba(23, 35, 47, 0.8);
+    color: var(--color-muted);
+}
+
+.dark .leaflet-container .leaflet-control-attribution a {
+    color: var(--color-accent);
 }

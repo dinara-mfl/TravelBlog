@@ -13,7 +13,7 @@ import {describeCountries, getContinents, getDestinationName, isNamedAfterCountr
 
 // Colors of the priority badge
 const PRIORITY_STYLES: Record<Priority, string> = {
-    HIGH: 'bg-accent text-white',
+    HIGH: 'bg-accent text-on-accent',
     MEDIUM: 'bg-accent-soft text-accent-dark',
     LOW: 'bg-page text-ink-soft',
 }
@@ -110,7 +110,7 @@ export default function WishlistPage() {
             </div>
 
             {shownError && (
-                <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+                <p role="alert" className="rounded-xl bg-danger-soft px-4 py-3 text-sm text-danger">
                     {shownError}
                 </p>
             )}
@@ -162,7 +162,7 @@ export default function WishlistPage() {
                                         <button
                                             type="button"
                                             onClick={() => planTrip(entry)}
-                                            className="min-h-10 cursor-pointer rounded-full bg-accent px-4 text-sm font-semibold text-white hover:bg-accent-dark"
+                                            className="min-h-10 cursor-pointer rounded-full bg-accent px-4 text-sm font-semibold text-on-accent hover:bg-accent-dark"
                                         >
                                             {t.wishlist.planTrip}
                                         </button>
@@ -176,7 +176,7 @@ export default function WishlistPage() {
                                         <button
                                             type="button"
                                             onClick={() => setEntryToDelete(entry)}
-                                            className="min-h-10 cursor-pointer rounded-full border border-line-strong bg-surface px-4 text-sm font-semibold text-red-700 hover:bg-red-50"
+                                            className="min-h-10 cursor-pointer rounded-full border border-line-strong bg-surface px-4 text-sm font-semibold text-danger hover:bg-danger-soft"
                                         >
                                             {t.common.delete}
                                         </button>

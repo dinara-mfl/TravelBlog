@@ -21,9 +21,10 @@ const FIT_OPTIONS = {padding: [48, 48] as [number, number], maxZoom: 12}
 // A single place is shown from far away, so that the map tells where in the country or the region it lies
 const SINGLE_STOP_FIT_OPTIONS = {...FIT_OPTIONS, maxZoom: 5}
 
-// Marker colors: blue for the stops on the route, white with a blue ring for day trips
-const ROUTE_MARKER_CLASSES = 'border-white bg-accent text-white'
-const DAY_TRIP_MARKER_CLASSES = 'border-accent bg-white text-accent'
+// Marker colors: blue for the stops on the route, the card color (white, dark in dark mode) with a blue ring for
+// day trips
+const ROUTE_MARKER_CLASSES = 'border-white bg-accent text-on-accent'
+const DAY_TRIP_MARKER_CLASSES = 'border-accent bg-surface text-accent'
 
 // A round marker; with several stops it shows the number of the stop in the order of the visit.
 // A divIcon instead of Leaflet's default marker, because the default marker images are not found after the Vite build.

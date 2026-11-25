@@ -208,6 +208,8 @@ nothing else.
   chosen language. The user's own content (titles, notes, the demo trips) is not translated.
 * The design is modern, light, minimalist, and airy; the page mockups in `TravelBlog – Seitenentwürfe.html` are the
   reference.
+* There is also a dark design. On the first visit the setting of the operating system decides; the user can switch
+  with a button in the header and on the login page, and the choice is kept in the browser.
 * The application should be usable on mobile devices.
 * While a page loads its data, it shows placeholders in the shape of the content (skeleton loading) instead of an
   empty page or a loading text, so the page does not jump when the data arrives.

@@ -8,7 +8,7 @@ type FormFieldProps = InputHTMLAttributes<HTMLInputElement> & {
 
 // Label with input, styled like the rest of the app; shows a field error below the input
 export default function FormField({label, id, error, ...inputProps}: Readonly<FormFieldProps>) {
-    const borderClass = error ? 'border-red-400' : 'border-line-strong'
+    const borderClass = error ? 'border-danger' : 'border-line-strong'
 
     return (
         <div className="flex flex-col gap-2">
@@ -23,7 +23,7 @@ export default function FormField({label, id, error, ...inputProps}: Readonly<Fo
                 {...inputProps}
             />
             {error && (
-                <p id={`${id}-error`} className="text-sm text-red-700">
+                <p id={`${id}-error`} className="text-sm text-danger">
                     {error}
                 </p>
             )}

@@ -90,7 +90,7 @@ export default function TripsPage() {
                 <button
                     type="button"
                     onClick={openEmptyDialog}
-                    className="flex min-h-12 cursor-pointer items-center gap-2 rounded-full bg-accent px-6 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(31,111,191,0.25)] hover:bg-accent-dark"
+                    className="flex min-h-12 cursor-pointer items-center gap-2 rounded-full bg-accent px-6 text-[15px] font-semibold text-on-accent shadow-[0_6px_18px_rgba(31,111,191,0.25)] hover:bg-accent-dark"
                 >
                     <span aria-hidden="true" className="text-xl leading-none">+</span>
                     <span>{t.trips.newTrip}</span>
@@ -100,7 +100,7 @@ export default function TripsPage() {
             {loading && <TripCardsSkeleton/>}
 
             {!loading && error && (
-                <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+                <p role="alert" className="rounded-xl bg-danger-soft px-4 py-3 text-sm text-danger">
                     {error}
                 </p>
             )}

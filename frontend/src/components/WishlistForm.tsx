@@ -158,7 +158,7 @@ export default function WishlistForm({entry, onSave, onCancel}: Readonly<Wishlis
                 )}
 
                 {countryError && (
-                    <p role="alert" className="text-sm text-red-700">{countryError}</p>
+                    <p role="alert" className="text-sm text-danger">{countryError}</p>
                 )}
             </div>
 
@@ -187,7 +187,7 @@ export default function WishlistForm({entry, onSave, onCancel}: Readonly<Wishlis
                 />
             </div>
             {fieldErrors.reason && (
-                <p role="alert" className="-mt-3 text-sm text-red-700">{fieldErrors.reason}</p>
+                <p role="alert" className="-mt-3 text-sm text-danger">{fieldErrors.reason}</p>
             )}
 
             <div className="flex flex-col gap-2">
@@ -218,7 +218,7 @@ export default function WishlistForm({entry, onSave, onCancel}: Readonly<Wishlis
             />
 
             {error && (
-                <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+                <p role="alert" className="rounded-xl bg-danger-soft px-4 py-3 text-sm text-danger">
                     {error}
                 </p>
             )}
@@ -226,7 +226,7 @@ export default function WishlistForm({entry, onSave, onCancel}: Readonly<Wishlis
             <button
                 type="submit"
                 disabled={submitting}
-                className="min-h-12 cursor-pointer rounded-full bg-accent px-6 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(31,111,191,0.25)] hover:bg-accent-dark disabled:cursor-default disabled:opacity-60"
+                className="min-h-12 cursor-pointer rounded-full bg-accent px-6 text-[15px] font-semibold text-on-accent shadow-[0_6px_18px_rgba(31,111,191,0.25)] hover:bg-accent-dark disabled:cursor-default disabled:opacity-60"
             >
                 {submitting && t.common.saving}
                 {!submitting && (entry ? t.wishlist.saveChanges : t.wishlist.add)}

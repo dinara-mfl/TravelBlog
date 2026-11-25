@@ -23,8 +23,9 @@ function Badge({children}: Readonly<{ children: ReactNode }>) {
 // One tile on the "Meine Reisen" page; the whole card links to the trip's detail page
 export default function TripCard({trip, index}: Readonly<TripCardProps>) {
     const {t, language} = useLanguage()
-    // The color chosen in "Neue Reise" wins; trips without a color get a pastel tone in turn
-    const fallbackClass = trip.coverColor ? '' : fallbackCoverColors[index % fallbackCoverColors.length]
+    // The color chosen in "Neue Reise" wins; trips without a color get a pastel tone in turn.
+    // A chosen pastel color is a fixed value, so in dark mode it is half transparent over the dark card.
+    const fallbackClass = trip.coverColor ? 'dark:opacity-50' : fallbackCoverColors[index % fallbackCoverColors.length]
     const countries = getCountryCodes(trip).map((code) => getCountryName(code, language)).join(' · ')
     // As on the detail page: with one place, "1 Ort" and "0 km" say nothing the title does not say;
     // a base with only day trips around it has several places but no route

@@ -51,6 +51,10 @@ const translations = {
     language: {
         label: {de: 'Sprache', en: 'Language'},
     },
+    theme: {
+        toDark: {de: 'Dunkles Design einschalten', en: 'Switch to dark design'},
+        toLight: {de: 'Helles Design einschalten', en: 'Switch to light design'},
+    },
     nav: {
         main: {de: 'Hauptnavigation', en: 'Main navigation'},
         trips: {de: 'Reisen', en: 'Trips'},

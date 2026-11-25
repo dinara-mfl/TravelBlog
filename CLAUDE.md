@@ -88,6 +88,9 @@ If a requested change conflicts with these documents, point out the conflict bef
 - The user interface is in German (the default) and English; the user switches with "DE | EN" in the header. All
   texts are in `frontend/src/i18n/texts.ts` (German and English side by side) and in the backend's
   `messages.properties` and `messages_en.properties`. A new text goes into both languages; no text is written directly into a component.
+- Colors come from the theme tokens in `frontend/src/index.css`, which have a light and a dark value. Do not use fixed
+  colors like `text-white` or `bg-red-50` in components, except on surfaces that are always dark (e.g. the photo
+  viewer).
 - Code, comments, and documentation are in English.
 
 ## Development Principles

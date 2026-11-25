@@ -5,6 +5,17 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>TravelBlog</title>
+    <!-- Light or dark design before the first paint, so a dark page does not flash white (the same rule as getTheme in
+         src/theme.ts: the user's choice, otherwise the setting of the operating system) -->
+    <script>
+        try {
+            const saved = localStorage.getItem('theme');
+            const dark = saved ? saved === 'dark' : globalThis.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.classList.toggle('dark', dark);
+        } catch {
+            // Without access to localStorage the page simply starts light
+        }
+    </script>
 </head>
 <body>
 <div id="root"></div>

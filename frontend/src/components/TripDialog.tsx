@@ -193,7 +193,7 @@ export default function TripDialog({open, trip, draft, onClose, onSaved}: Readon
             ref={dialogRef}
             onClose={onClose}
             aria-labelledby="trip-dialog-title"
-            className="m-auto w-[calc(100%-2rem)] max-w-lg rounded-card bg-surface p-0 text-ink shadow-card backdrop:bg-ink/40"
+            className="m-auto w-[calc(100%-2rem)] max-w-lg rounded-card bg-surface p-0 text-ink shadow-card backdrop:bg-black/50"
         >
             <DialogHeader
                 titleId="trip-dialog-title"
@@ -332,7 +332,7 @@ export default function TripDialog({open, trip, draft, onClose, onSaved}: Readon
                                     onClick={() => toggleTag(tag)}
                                     className={`min-h-11 cursor-pointer rounded-full border px-4.5 text-sm font-semibold ${
                                         selected
-                                            ? 'border-accent bg-accent text-white'
+                                            ? 'border-accent bg-accent text-on-accent'
                                             : 'border-line-strong bg-surface text-ink hover:border-accent'
                                     }`}
                                 >
@@ -344,7 +344,7 @@ export default function TripDialog({open, trip, draft, onClose, onSaved}: Readon
                 </fieldset>
 
                 {error && (
-                    <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+                    <p role="alert" className="rounded-xl bg-danger-soft px-4 py-3 text-sm text-danger">
                         {error}
                     </p>
                 )}
@@ -360,7 +360,7 @@ export default function TripDialog({open, trip, draft, onClose, onSaved}: Readon
                     <button
                         type="submit"
                         disabled={submitting}
-                        className="min-h-12 cursor-pointer rounded-full bg-accent px-6 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(31,111,191,0.25)] hover:bg-accent-dark disabled:cursor-default disabled:opacity-60"
+                        className="min-h-12 cursor-pointer rounded-full bg-accent px-6 text-[15px] font-semibold text-on-accent shadow-[0_6px_18px_rgba(31,111,191,0.25)] hover:bg-accent-dark disabled:cursor-default disabled:opacity-60"
                     >
                         {submitLabel}
                     </button>

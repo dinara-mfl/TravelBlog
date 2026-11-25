@@ -122,7 +122,7 @@ export default function WorldMapPage() {
             {loading ? <StatTilesSkeleton count={stats.length}/> : <TripStats stats={stats}/>}
 
             {mapFailed && (
-                <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+                <p role="alert" className="rounded-xl bg-danger-soft px-4 py-3 text-sm text-danger">
                     {t.worldMap.mapError}
                 </p>
             )}
@@ -233,7 +233,7 @@ export default function WorldMapPage() {
                     <h2 className="text-lg font-bold tracking-tight">{t.worldMap.visitedCountries}</h2>
 
                     {tripsFailed && (
-                        <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+                        <p role="alert" className="rounded-xl bg-danger-soft px-4 py-3 text-sm text-danger">
                             {t.worldMap.tripsError}
                         </p>
                     )}
@@ -277,7 +277,7 @@ export default function WorldMapPage() {
                     <h2 className="text-lg font-bold tracking-tight">{t.worldMap.wishes}</h2>
 
                     {wishlistFailed && (
-                        <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+                        <p role="alert" className="rounded-xl bg-danger-soft px-4 py-3 text-sm text-danger">
                             {t.worldMap.wishesError}
                         </p>
                     )}

@@ -41,7 +41,7 @@ export default function MapWheelZoom() {
     return (
         <div
             aria-hidden="true"
-            className={`pointer-events-none absolute inset-0 z-1000 flex items-center justify-center bg-ink/35 p-4 transition-opacity duration-300 ${
+            className={`pointer-events-none absolute inset-0 z-1000 flex items-center justify-center bg-black/40 p-4 transition-opacity duration-300 ${
                 hintVisible ? 'opacity-100' : 'opacity-0'
             }`}
         >

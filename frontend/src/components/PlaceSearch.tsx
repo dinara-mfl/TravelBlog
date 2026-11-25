@@ -72,7 +72,7 @@ export default function PlaceSearch({selected, onSelect, error, initialQuery}: R
             </div>
 
             {message && (
-                <p id="place-search-error" className="text-sm text-red-700">
+                <p id="place-search-error" className="text-sm text-danger">
                     {message}
                 </p>
             )}

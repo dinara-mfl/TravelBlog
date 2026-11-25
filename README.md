@@ -85,6 +85,7 @@ The user interface is in German and English: switch with **DE | EN** in the top 
 - Registration and login; every user sees and changes only their own data
 - German and English user interface, including dates, numbers, country names, error messages, place search, and
   Wikipedia
+- Light and dark design: follows the system setting, or switch with the sun / moon button
 
 ## Tech stack
 

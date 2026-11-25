@@ -84,7 +84,7 @@ export default function PhotoLightbox({trip, stopId, startIndex, onClose, onTrip
             onClose={onClose}
             onKeyDown={handleKeyDown}
             aria-label={t.lightbox.label(stop.name)}
-            className="m-auto h-full max-h-none w-full max-w-none bg-ink p-0 text-white backdrop:bg-ink/60"
+            className="m-auto h-full max-h-none w-full max-w-none bg-slate-950 p-0 text-white backdrop:bg-black/60"
         >
             <div className="flex h-full flex-col gap-4 p-4 sm:p-6">
                 <div className="flex items-center justify-between gap-3">
@@ -124,7 +124,7 @@ export default function PhotoLightbox({trip, stopId, startIndex, onClose, onTrip
                         type="button"
                         onClick={() => void makeCover()}
                         disabled={busy || isCover}
-                        className={`${actionButton} bg-white text-ink hover:bg-white/85`}
+                        className={`${actionButton} bg-white text-slate-900 hover:bg-white/85`}
                     >
                         {isCover ? t.lightbox.isCover : t.lightbox.makeCover}
                     </button>

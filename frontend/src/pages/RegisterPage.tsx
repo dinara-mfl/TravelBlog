@@ -72,7 +72,7 @@ export default function RegisterPage() {
                 />
 
                 {error && (
-                    <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+                    <p role="alert" className="rounded-xl bg-danger-soft px-4 py-3 text-sm text-danger">
                         {error}
                     </p>
                 )}
@@ -80,7 +80,7 @@ export default function RegisterPage() {
                 <button
                     type="submit"
                     disabled={submitting}
-                    className="mt-2 min-h-12 cursor-pointer rounded-full bg-accent px-6 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(31,111,191,0.25)] hover:bg-accent-dark disabled:cursor-default disabled:opacity-60"
+                    className="mt-2 min-h-12 cursor-pointer rounded-full bg-accent px-6 text-[15px] font-semibold text-on-accent shadow-[0_6px_18px_rgba(31,111,191,0.25)] hover:bg-accent-dark disabled:cursor-default disabled:opacity-60"
                 >
                     {submitting ? t.auth.registering : t.auth.register}
                 </button>

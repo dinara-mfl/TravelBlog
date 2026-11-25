@@ -38,7 +38,7 @@ export default function MonthStats({daysPerMonth}: Readonly<{ daysPerMonth: numb
                             {/* Hint above the column; the wide invisible column is the hover target */}
                             <span
                                 aria-hidden="true"
-                                className="pointer-events-none absolute bottom-full z-10 mb-1 hidden whitespace-nowrap rounded-lg bg-ink px-2.5 py-1 text-xs font-semibold text-white group-hover:block"
+                                className="pointer-events-none absolute bottom-full z-10 mb-1 hidden whitespace-nowrap rounded-lg bg-ink px-2.5 py-1 text-xs font-semibold text-surface group-hover:block"
                             >
                                 {`${month.long}: ${t.common.days(days)}`}
                             </span>

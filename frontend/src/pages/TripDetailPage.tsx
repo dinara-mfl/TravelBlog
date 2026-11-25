@@ -79,7 +79,7 @@ export default function TripDetailPage() {
             <div className="flex flex-col gap-6">
                 <BackLink/>
                 {loadErrorText ? (
-                    <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">{loadErrorText}</p>
+                    <p role="alert" className="rounded-xl bg-danger-soft px-4 py-3 text-sm text-danger">{loadErrorText}</p>
                 ) : (
                     <section className="flex flex-col items-center gap-2 rounded-card bg-surface px-6 py-14 text-center shadow-card">
                         <h1 className="text-xl font-bold">{t.tripDetail.notFoundTitle}</h1>
@@ -107,7 +107,7 @@ export default function TripDetailPage() {
                     <button
                         type="button"
                         onClick={() => setConfirmDelete(true)}
-                        className="min-h-12 cursor-pointer rounded-full px-5 text-[15px] font-semibold text-red-700 hover:bg-red-50"
+                        className="min-h-12 cursor-pointer rounded-full px-5 text-[15px] font-semibold text-danger hover:bg-danger-soft"
                     >
                         {t.common.delete}
                     </button>
@@ -122,7 +122,7 @@ export default function TripDetailPage() {
             </section>
 
             {error && (
-                <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>
+                <p role="alert" className="rounded-xl bg-danger-soft px-4 py-3 text-sm text-danger">{error}</p>
             )}
 
             <TripStops trip={trip} onTripChange={setTrip}/>

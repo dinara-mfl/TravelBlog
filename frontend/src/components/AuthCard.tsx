@@ -1,5 +1,6 @@
 import type {ReactNode} from 'react'
 import LanguageSwitch from './LanguageSwitch'
+import ThemeToggle from './ThemeToggle'
 
 type AuthCardProps = {
     title: string
@@ -8,12 +9,13 @@ type AuthCardProps = {
     children: ReactNode
 }
 
-// Shared frame for the login and registration pages: language switch, logo, white card, link below
+// Shared frame for the login and registration pages: design and language switch, logo, white card, link below
 export default function AuthCard({title, subtitle, footer, children}: Readonly<AuthCardProps>) {
     return (
         <main className="relative flex min-h-screen items-center justify-center px-6 py-12">
             {/* Top right, where the header has it on the other pages */}
-            <div className="absolute top-4 right-6">
+            <div className="absolute top-4 right-6 flex items-center gap-3">
+                <ThemeToggle/>
                 <LanguageSwitch/>
             </div>
             <div className="flex w-full max-w-md flex-col gap-8">

@@ -38,7 +38,7 @@ export default function PhotoPicker({files, onFilesChange, existingPhotoIds = []
     }
 
     const thumb = 'size-20 rounded-xl'
-    const removeButton = 'absolute -right-2 -top-2 flex size-7 cursor-pointer items-center justify-center rounded-full bg-ink text-sm font-bold text-white hover:bg-red-700'
+    const removeButton = 'absolute -right-2 -top-2 flex size-7 cursor-pointer items-center justify-center rounded-full bg-ink text-sm font-bold text-surface hover:bg-red-700 hover:text-white'
 
     return (
         <div className="flex flex-col gap-2">
@@ -89,7 +89,7 @@ export default function PhotoPicker({files, onFilesChange, existingPhotoIds = []
                     </li>
                 )}
             </ul>
-            {error && <p className="text-sm text-red-700">{error}</p>}
+            {error && <p className="text-sm text-danger">{error}</p>}
         </div>
     )
 }

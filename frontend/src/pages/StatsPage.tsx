@@ -64,7 +64,7 @@ export default function StatsPage() {
             {loading && <StatsSkeleton/>}
 
             {!loading && error && (
-                <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+                <p role="alert" className="rounded-xl bg-danger-soft px-4 py-3 text-sm text-danger">
                     {error}
                 </p>
             )}
