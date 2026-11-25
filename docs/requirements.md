@@ -211,6 +211,8 @@ nothing else.
 * The application should be usable on mobile devices.
 * While a page loads its data, it shows placeholders in the shape of the content (skeleton loading) instead of an
   empty page or a loading text, so the page does not jump when the data arrives.
+* When the server takes long to answer (e.g. it wakes up after a break on the free hosting plan), a short note says
+  so, so the application does not look broken.
 
 ### Operation
 

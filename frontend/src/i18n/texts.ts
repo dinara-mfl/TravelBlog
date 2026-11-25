@@ -42,6 +42,11 @@ const translations = {
             en: (count: number) => (count === 1 ? '1 photo' : `${count} photos`),
         },
         photo: {de: (number: number) => `Foto ${number}`, en: (number: number) => `Photo ${number}`},
+        // Shown while an API request takes long, e.g. when the server on Render wakes up after a break
+        slowServer: {
+            de: 'Der Server wacht gerade auf. Das kann bis zu einer Minute dauern – bitte kurz warten.',
+            en: 'The server is waking up. This can take up to a minute – please wait a moment.',
+        },
     },
     language: {
         label: {de: 'Sprache', en: 'Language'},

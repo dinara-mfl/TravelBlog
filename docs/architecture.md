@@ -304,6 +304,11 @@ Decisions that complement `requirements.md`. Update this file when a decision ch
   The base block is `Skeleton`; each page has its own skeleton (e.g. `TripCardsSkeleton`). The pulsing respects the
   system setting for less motion (`motion-safe:`); screen readers get a hidden "… wird geladen" text
   (`LoadingText`). Photos that are still loading pulse in the same way (`AuthImage`).
+- When an API request takes longer than 4 seconds, a note at the bottom of the screen says that the server is waking
+  up (`SlowServerNotice`, counted in `api/slowRequests.ts` by the axios interceptors). On Render's free plan the
+  server sleeps after a while without visitors, and the first request afterwards takes about a minute; without the
+  note the app would look broken. It appears on every page, also on the login page. The very first visit cannot show
+  it, because the same server also delivers the page.
 - The page always keeps room for the scrollbar (`scrollbar-gutter: stable` in `index.css`), so it does not shift
   sideways when switching between a short and a long page.
 - Routing uses React Router; HTTP requests use axios.

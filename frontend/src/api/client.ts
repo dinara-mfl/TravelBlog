@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {getLanguage} from '../i18n/language'
+import {startWatching, stopWatching} from './slowRequests'
 
 export const TOKEN_KEY = 'token'
 
@@ -13,13 +14,18 @@ api.interceptors.request.use((config) => {
         config.headers.Authorization = `Bearer ${token}`
     }
     config.headers['Accept-Language'] = getLanguage()
+    startWatching(config) // a notice appears if the answer takes long (the server is waking up)
     return config
 })
 
 // Token missing, invalid or expired: go back to the login page
 api.interceptors.response.use(
-    (response) => response,
+    (response) => {
+        stopWatching(response.config)
+        return response
+    },
     (error) => {
+        stopWatching(error.config)
         const isAuthCall = error.config?.url?.startsWith('/api/auth/')
         if (error.response?.status === 401 && !isAuthCall) {
             localStorage.removeItem(TOKEN_KEY)

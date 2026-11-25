@@ -31,7 +31,8 @@ The demo account has four sample trips (Italy, Portugal, Iceland, Japan) with ph
 change or delete anything: the demo data is reset whenever the service restarts.
 
 > The app runs on Render's free plan, which sleeps after a while without visitors. The first page load can take about a
-> minute; after that it is fast.
+> minute; after that it is fast. If the server falls asleep while the app is open, the app shows a note while it wakes
+> up.
 
 The user interface is in German and English: switch with **DE | EN** in the top right corner.
 
